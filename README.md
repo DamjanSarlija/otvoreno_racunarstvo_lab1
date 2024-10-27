@@ -26,3 +26,6 @@ naziv: Naziv artikla naveden u službenom katalogu Studenca pronađenom na služ
 cijena: Trenutna cijena artikla navedena u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca, može podrazumijevati i akcijsku cijenu ako je akcija trenutno u tijeku
 oznaka_trgovine (nema u .json i .csv datotekama): Jedinstveni identifikator Studenac poslovnice naveden na službenoj internetskoj stranici Studenca. Preslikani atribut atributa "oznaka" objekata trgovine, služi za povezivanje dviju tablica baze podataka
 ---
+
+
+Ovaj skup podataka obuhvaća podatke o deset odabranih Studenac poslovnica na području županije Grad Zagreb. Skup je pohranjen u bazu podataka modeliranu koristeći dvije tablice: trgovine i artikli. Ove dvije tablice povezane su putem atributa oznaka u tablici trgovine, koji odgovara atributu oznaka_trgovine u tablici artikli. Opisi svih atributa prikazani su u tablici iznad. Podaci su prikupljeni koristeći službenu internetsku stranicu Studenca te Google karte.
