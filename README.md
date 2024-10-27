@@ -1,1 +1,4 @@
-# otvoreno_racunarstvo_lab1
+---
+licenca: MIT
+autor: Damjan Šarlija
+---
