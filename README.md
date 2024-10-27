@@ -1,5 +1,3 @@
-Osnovni podaci o repozitoriju i njegovom sadržaju
-
 ---
 licenca: MIT
 autor: Damjan Šarlija
