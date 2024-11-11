@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <author>Damjan Šarlija</author>
+</head>
+<body>
+    <h1>Ovo je početna stranica</h1>
+    <br>
+    <h2>Ovdje preuzmite .json datoteku s podacima:</h2>
+    <a href = "/preuzmiJson">Download studenci.json</a>
+    <br>
+    <h2>Ovdje preuzmite .csv datoteku s podacima:</h2>
+    <a href = "/preuzmiCsv">Download studenci.csv</a>
+    <br>
+    <h2>Stranica s prikazom tablice i omogućenim pretraživanjem nalazi se na poveznici ispod</h2>
+    <a href = "/datatable.html">datatable</a>
+    <br>
+    <br>
+    <p>
+        ---
+PODACI O AUTORU I SADRŽAJU REPOZITORIJA>:<br>
+Licenca: MIT<br>
+Autor: Damjan Šarlija<br>
+Kontakt: ds54042@fer.hr<br>
+Verzija: 1.0<br>
+Učestalost ažuriranja: nedefinirano<br>
+Jezik: Hrvatski<br>
+Geografsko područje: županija Grad Zagreb<br>
+Datum: 27. listopada 2024.<br>
+Institucija: Fakultet elektrotehnike i računarstva Sveučilišta u Zagrebu<br>
+Predmet: Otvoreno računarstvo<br>
+ATRIBUTI TRGOVINE>: <br>
+oznaka: Jedinstveni identifikator Studenac poslovnice naveden na službenoj internetskoj stranici Studenca<br>
+adresa: Ulica i kućni broj poslovnice<br>
+mjesto: Naziv naselja u kojem se nalazi poslovnica<br>
+geo_sirina: Geografska širina lokacije poslovnice<br>
+geo_duzina: Geografska dužina lokacije poslovnice<br>
+ocjena: Prosječna ocjena dodijeljena lokaciji na Google kartama<br>
+broj_glasova: Broj ocijena dodijeljenih lokaciji na Google kartama<br>
+otvaranje: Početak radnog vremena poslovnice radnim danom, ali ne nužno i nedjeljom<br>
+zatvaranje: Završetak radnog vremena poslovnice radnim danom, ali ne nužno i nedjeljom<br>
+ima_zeleni_hell: Označava nalazi li se trenutno u asortimanu poslovnice energetsko piće Hell Focus+<br>
+artikli: Nekoliko artikala iz asortimana trgovine<br>
+ATRIBUTI ARTIKLI>:<br>
+naziv: Naziv artikla naveden u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca<br>
+cijena: Trenutna cijena artikla navedena u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca, može podrazumijevati i akcijsku cijenu ako je akcija trenutno u tijeku<br>
+oznaka_trgovine (nema u .json i .csv datotekama): Jedinstveni identifikator Studenac poslovnice naveden na službenoj internetskoj stranici Studenca. Preslikani atribut atributa "oznaka" objekata trgovine, služi za povezivanje dviju tablica baze podataka<br>
+---<br>
+<br>
+<br>
+Ovaj skup podataka obuhvaća podatke o deset odabranih Studenac poslovnica na području županije Grad Zagreb. Skup je pohranjen u PostgreSQL bazu podataka modeliranu koristeći dvije tablice: trgovine i artikli. Ove dvije tablice povezane su putem atributa oznaka u tablici trgovine, koji odgovara atributu oznaka_trgovine u tablici artikli. Opisi svih atributa prikazani su u tablici iznad. Podaci su prikupljeni koristeći službenu internetsku stranicu Studenca te Google karte.<br>
+<br>
+Iz PostgreSQL baze podataka, podaci su izdvojeni u .json i .csv datoteke. Izvoz u .json izveden je sljedećim SQL naredbama:<br>
+
+COPY (<br>
+    SELECT json_agg(<br>
+        json_build_object(<br>
+            'oznaka', oznaka,<br>
+            'adresa', adresa,<br>
+            'mjesto', mjesto,<br>
+            'geo_sirina', geo_sirina,<br>
+            'geo_duzina', geo_duzina,<br>
+            'ocjena', ocjena,<br>
+            'broj_glasova', broj_glasova,<br>
+            'otvaranje', otvaranje,<br>
+            'zatvaranje', zatvaranje,<br>
+            'ima_zeleni_hell', ima_zeleni_hell,<br>
+            'artikli', (<br>
+                SELECT json_agg(<br>
+                    json_build_object(<br>
+                        'naziv', naziv,<br>
+                        'cijena', cijena<br>
+                    )<br>
+                )<br>
+                FROM artikli<br>
+                WHERE oznaka_trgovine = oznaka<br>
+            )<br>
+        )<br>
+    )<br>
+    FROM trgovine<br>
+) TO 'C:/isprobaj/rez.json';<br>
+<br>
+<br>
+Izvoz iz PostgreSQL baze podataka u .csv datoteku izveden je sljedećim SQL naredbama:<br>
+<br>
+COPY (<br>
+	SELECT oznaka, adresa, mjesto, geo_sirina, geo_duzina, ocjena, broj_glasova, otvaranje, zatvaranje, ima_zeleni_hell, naziv, cijena<br>
+	FROM trgovine LEFT JOIN artikli ON oznaka = oznaka_trgovine<br>
+) TO 'C:/isprobaj/rezcsv.csv' WITH csv;
+    </p>
+</body>
+</html>

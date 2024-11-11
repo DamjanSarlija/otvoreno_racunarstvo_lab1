@@ -1,0 +1,106 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://or.fer.unizg.hr/studenci.json",
+    "title": "OR Studenci",
+    "description": "Skup podataka za izvođenje laboratorijskih vježbi iz predmeta Otvoreno računarstvo",
+    "type": "array",
+    "items": {
+        "title": "Studenac",
+        "description": "Poslovnica trgovine Studenac",
+        "type": "object",
+        "required": [
+            "oznaka",
+            "adresa",
+            "mjesto",
+            "geo_sirina",
+            "geo_duzina",
+            "ocjena",
+            "broj_glasova",
+            "otvaranje",
+            "zatvaranje",
+            "ima_zeleni_hell",
+            "artikli"
+        ],
+        "properties": {
+            "oznaka": {
+                "title": "oznaka",
+                "description": "Jedinstveni identifikator Studenac poslovnice naveden na službenoj internetskoj stranici Studenca",
+                "type": "string"
+            },
+            "adresa": {
+                "title": "adresa",
+                "description": "Ulica i kućni broj poslovnice",
+                "type": "string"
+            },
+            "mjesto": {
+                "title": "mjesto",
+                "description": "Naziv naselja u kojem se nalazi poslovnica",
+                "type": "string"
+            },
+            "geo_sirina": {
+                "title": "geo_sirina",
+                "description": "Geografska širina lokacije poslovnice",
+                "type": "number"
+            },
+            "geo_duzina": {
+                "title": "geo_duzina",
+                "description": "Geografska dužina lokacije poslovnice",
+                "type": "number"
+            },
+            "ocjena": {
+                "title": "ocjena",
+                "description": "Prosječna ocjena dodijeljena lokaciji na Google kartama",
+                "type": [
+                    "integer",
+                    "number"
+                ]
+            },
+            "broj_glasova": {
+                "title": "broj_glasova",
+                "description": "Broj ocijena dodijeljenih lokaciji na Google kartama",
+                "type": "integer"
+            },
+            "otvaranje": {
+                "title": "otvaranje",
+                "description": "Početak radnog vremena poslovnice radnim danom, ali ne nužno i nedjeljom",
+                "type": "string"
+            },
+            "zatvaranje": {
+                "title": "zatvaranje",
+                "description": "Završetak radnog vremena poslovnice radnim danom, ali ne nužno i nedjeljom",
+                "type": "string"
+            },
+            "ima_zeleni_hell": {
+                "title": "ima_zeleni_hell",
+                "description": "Označava nalazi li se trenutno u asortimanu poslovnice energetsko piće Hell Focus+",
+                "type": "boolean"
+            },
+            "artikli": {
+                "title": "artikli",
+                "description": "Nekoliko artikala iz asortimana trgovine",
+                "type": "array",
+                "items": {
+                    "title": "A Schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "type": "object",
+                    "required": [
+                        "naziv",
+                        "cijena"
+                    ],
+                    "properties": {
+                        "naziv": {
+                            "title": "naziv",
+                            "description": "Naziv artikla naveden u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca",
+                            "type": "string"
+                        },
+                        "cijena": {
+                            "title": "cijena",
+                            "description": "Trenutna cijena artikla navedena u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca, može podrazumijevati i akcijsku cijenu ako je akcija trenutno u tijeku",
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

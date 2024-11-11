@@ -1,0 +1,26 @@
+oznaka,adresa,mjesto,geo_sirina,geo_duzina,ocjena,broj_glasova,otvaranje,zatvaranje,ima_zeleni_hell,naziv,cijena
+T1160,Bjelovarska ulica 2,Sesvete,45.82691,16.11117,5,3,6:30,21:00,true,Šibice,0.89
+T1160,Bjelovarska ulica 2,Sesvete,45.82691,16.11117,5,3,6:30,21:00,true,Tortilja,1.89
+T1161,Trg Antuna Mihanovića 4,Sesvete,45.8294,16.07957,4.8,6,7:00,22:00,false,Kukuruz šećerac,0.95
+T1162,Vugrovečka cesta 62,Dobrodol,45.85434,16.11278,5,2,7:00,21:00,true,Gazirana mineralna voda,0.59
+T1162,Vugrovečka cesta 62,Dobrodol,45.85434,16.11278,5,2,7:00,21:00,true,Krem puding Galetta,1.09
+T1163,Augusta Šenoe 49,Vugrovec,45.88053,16.10886,3.3,6,6:30,21:00,false,Pašteta losos,2.39
+T1164,Zagrebačka cesta 4C,Sesvete,45.82796,16.10796,5,1,6:30,21:00,true,Četvrt mlade kokoši,1.89
+T1164,Zagrebačka cesta 4C,Sesvete,45.82796,16.10796,5,1,6:30,21:00,true,Čokolada ledena,1.29
+T1164,Zagrebačka cesta 4C,Sesvete,45.82796,16.10796,5,1,6:30,21:00,true,Kikiriki,1.29
+T1166,Ulica kaktusa 5,Brestje,45.82746,16.08519,3.7,3,7:00,21:00,true,Grah bijeli,1.69
+T1166,Ulica kaktusa 5,Brestje,45.82746,16.08519,3.7,3,7:00,21:00,true,Jabuka Idared,1.27
+T1166,Ulica kaktusa 5,Brestje,45.82746,16.08519,3.7,3,7:00,21:00,true,Puding,0.49
+T1167,Varaždinska cesta 90,Popovec,45.85068,16.14063,4.4,5,7:00,21:00,true,Carska mješavina,1.65
+T1167,Varaždinska cesta 90,Popovec,45.85068,16.14063,4.4,5,7:00,21:00,true,Vitaminski napitak,4.19
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Ćevapčići,8.99
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Grah šareni,1.29
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Keks Choco cookie,1.89
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Mliječni napitak,0.69
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Pečena šunka,10.99
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Potpuna hrana za mačke,0.65
+T1415,Oporovečki vinogradi 17,Oporovec,45.85384,16.0578,3,6,7:00,22:00,true,Tjestenina filini,0.98
+T1705,Žugčićeva 22,Novoselec,45.84942,16.08261,5,1,7:00,21:00,false,Osvježivač prostora,3.99
+T1705,Žugčićeva 22,Novoselec,45.84942,16.08261,5,1,7:00,21:00,false,Panirani riblji štapići,2.39
+T1705,Žugčićeva 22,Novoselec,45.84942,16.08261,5,1,7:00,21:00,false,Pašteta jetrena,0.65
+T876,Zagrebačka cesta 9,Sesvete,45.82747,16.10799,3.7,31,7:00,22:00,false,Pirovo integralno brašno,1.89
