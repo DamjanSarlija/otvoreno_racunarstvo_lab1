@@ -21,6 +21,7 @@ broj_glasova: Broj ocijena dodijeljenih lokaciji na Google kartama
 otvaranje: Početak radnog vremena poslovnice radnim danom, ali ne nužno i nedjeljom
 zatvaranje: Završetak radnog vremena poslovnice radnim danom, ali ne nužno i nedjeljom
 ima_zeleni_hell: Označava nalazi li se trenutno u asortimanu poslovnice energetsko piće Hell Focus+
+artikli: Nekoliko artikala iz asortimana trgovine
 ATRIBUTI ARTIKLI>:
 naziv: Naziv artikla naveden u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca
 cijena: Trenutna cijena artikla navedena u službenom katalogu Studenca pronađenom na službenoj internetskoj stranici Studenca, može podrazumijevati i akcijsku cijenu ako je akcija trenutno u tijeku
