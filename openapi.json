@@ -1,0 +1,408 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Studenac API",
+        "version": "1.0.",
+        "contact": {
+            "name": "Damjan Šarlija",
+            "email": "ds54042@fer.hr"
+        },
+        "license": {
+            "name": "Apache 2.0"
+        }
+    },
+    "paths": {
+        "/cjelokupniPodaci": {
+            "get": {
+                "summary": "Dohvaća sve podatke iz baze",
+                "description": "Vraća JSON zapis koji sadrži sve podatke iz baze",
+                "responses": {
+                    "200": {
+                        "description": "Uspješno dohvaćeni podaci o trgovinama",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pojedinacniResurs": {
+            "get": {
+                "summary": "Dohvaća podatke iz tablice o trgovini željene oznake (identifikatora)",
+                "description": "Vraća JSON zapis s podacima o trgovini s traženom oznakom",
+                "parameters": [
+                    {
+                        "name": "odabranaVrijednost",
+                        "in": "query",
+                        "description": "identifikator trgovine",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješno dohvaćeni podaci o traženoj trgovini",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ne postoji trgovina s traženom oznakom",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trgovineUMjestu": {
+            "get": {
+                "summary": "Dohvaća podatke o trgovinama u željenom mjestu",
+                "description": "Vraća JSON s podacima o trgovinama u željenom mjestu",
+                "parameters": [
+                    {
+                        "name": "mjesto",
+                        "in": "query",
+                        "description": "Naziv željenog mjesta",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješno dohvaćeni podaci o trgovinama u traženom mjestu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ne postoji trgovina u traženom mjestu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trgovineZeleniHell": {
+            "get": {
+                "summary": "Dohvaća podatke o trgovinama koje sadrže zeleni Hell u svom asortimanu",
+                "description": "Vraća JSON zapis o svim trgovinama koje u svom asortimanu sadrže zeleni Hell",
+                "responses": {
+                    "200": {
+                        "description": "Uspješno dohvaćeni podaci o trgovinama koje u asortimanu sadrže zeleni Hell",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ne postoji trgovina u bazi koja sadrži zeleni Hell u asortimanu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/minOcjena": {
+            "get": {
+                "summary": "Dohvaća trgovine čija je prosječna ocjena veća ili jednaka zadanoj",
+                "description": "Dohvaća JSON zapis s podacima o svim trgovinama čija je prosječna ocjena veća ili jednaka zadanoj",
+                "parameters": [
+                    {
+                        "name": "minOcjena",
+                        "in": "query",
+                        "description": "Donja granica filtera ocjene trgovine",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješno dohvaćeni podaci o trgovinama s prosječnom ocjenom većom ili jednakom zadanoj",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ne postoji trgovina u bazi koja ima veću ili jednaku ocjenu zadanoj",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dodajResurs": {
+            "post": {
+                "summary": "Dodaje novi resurs u bazu podataka",
+                "description": "Prima vrijednosti atributa retka tablice i dodaje taj redak u tablicu",
+                "parameters": [
+                    {
+                        "name": "oznaka",
+                        "in": "body",
+                        "description": "Jedinstveni identifikator trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "adresa",
+                        "in": "body",
+                        "description": "Adresa trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mjesto",
+                        "in": "body",
+                        "description": "Naziv mjesta u kojem se trgovina nalazi",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "geo_sirina",
+                        "in": "body",
+                        "description": "Geografska širina lokacije trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "geo_duzina",
+                        "in": "body",
+                        "description": "Geografska dužina lokacije trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ocjena",
+                        "in": "body",
+                        "description": "Prosječna ocjena trgovine na Google kartama",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "broj_glasova",
+                        "in": "body",
+                        "description": "Broj ocjena trgovine na Google kartama",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "otvaranje",
+                        "in": "body",
+                        "description": "Vrijeme otvaranja trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "zatvaranje",
+                        "in": "body",
+                        "description": "Vrijeme zatvaranja trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ima_zeleni_hell",
+                        "in": "body",
+                        "description": "Sadrži informaciju ima li ili nema trgovina u asortimanu energetsko piće Hell Focus+",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "naziv",
+                        "in": "body",
+                        "description": "Naziv artikla",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cijena",
+                        "in": "body",
+                        "description": "Cijena artikla",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješno dodaj resurs u bazu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Neuspjelo dodavanje resursa u bazu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "zeleniHellStatus": {
+            "put": {
+                "summary": "Postavlja status postojanja zelenog Hella u asortimanu",
+                "description": "Oznakom 'true' ili 'false' određuje i po potrebi mijenja status polja ima_zeleni_hell u bazi podataka",
+                "parameters": [
+                    {
+                        "name": "oznaka",
+                        "in": "body",
+                        "description": "Jedinstveni identifikator trgovine",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "zeleni_hell_status",
+                        "in": "body",
+                        "description": "Sadrži informaciju ima li ili nema trgovina u asortimanu energetsko piće Hell Focus+",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješno ažuriran/potvrđen status resursa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Neuspješno ažuriranje/potvrda statusa resursa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ne postoji trgovina s traženom oznakom",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/izbrisiResurs": {
+            "delete": {
+                "summary": "Briše podatke o trgovini sa željenom oznakom iz tablice",
+                "description": "Prima oznaku trgovine i iz tablice uklanja retke koji se odnose na tu trgovinu",
+                "parameters": [
+                    {
+                        "name": "oznaka",
+                        "in": "body",
+                        "description": "Jedinstveni identifikator trgovine",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uspješno brisanje željenog resursa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Neuspješno brisanje resursa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ne postoji trgovina s traženom oznakom (resurs ne postoji)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dohvatiOpenAPI": {
+            "get": {
+                "summary": "Dohvaća OpenAPI specifikaciju sučelja (ovu datoteku)",
+                "description": "U JSON formatu vraća ovu datoteku",
+                "responses": [
+                    {
+                        "200": {
+                            "description": "Uspješno dohvaćanje OpenAPI specifikacije",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
