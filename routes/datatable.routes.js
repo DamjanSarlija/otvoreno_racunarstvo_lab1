@@ -1,8 +1,18 @@
 const express = require("express")
 const router = express.Router();
 const { Client } = require("pg")
+const { requiresAuth } = require("express-openid-connect");
+const path = require("path");
 
-router.get("/pretraziBazu", async (req, res) => {
+const redirectIndex = (req, res, next) => {
+    if (!req.session.status) {
+        return res.redirect('/');
+    }
+    next();
+};
+
+router.get("/pretraziBazu", redirectIndex, async (req, res) => {
+    console.log("Pretrazujemo bazu")
     odabranoPolje = req.query.odabranoPolje
     odabranaVrijednost = req.query.odabranaVrijednost
 
@@ -31,7 +41,7 @@ router.get("/pretraziBazu", async (req, res) => {
     res.json(rezultatiRetci)
 })
 
-router.get("/generirajJson", async (req,res) => {
+router.get("/generirajJson", redirectIndex, async (req,res) => {
     const client = new Client({
         user: "postgres",
         password: "postgres",
@@ -128,8 +138,24 @@ router.get("/generirajJson", async (req,res) => {
         })
         
     }
+    
+    jsonArrayFilteredLD = jsonArrayFiltered.map(item => {
+        return {
+            "@context": "https://schema.org/",
+            ...item,
+            oznaka: {
+                "@type": "identifier",
+                "value": item.oznaka
+            },
+            adresa: {
+                "@type": "location",
+                "value": item.adresa
+            }
+        };
+    });
 
-    res.json(jsonArrayFiltered)
+
+    res.json(jsonArrayFilteredLD)
 })
 
 
