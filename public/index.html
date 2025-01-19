@@ -18,7 +18,32 @@
     <h2>Stranica s prikazom tablice i omogućenim pretraživanjem nalazi se na poveznici ispod</h2>
     <a href = "/datatable.html">datatable</a>
     <br>
+    <a href="/logiraj">Login</a>
+    <a href="/logoutaj">Logout</a>
     <br>
+    <a href = "/korisnickiProfil" class = "protected-link" style = "display: none">Korisnički profil</a>
+    <br>
+    <a href = "#" class = "protected-link" style = "display: none" onclick = "generirajDatoteke()">Osvježi preslike</a>
+
+    <script src="/status.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const protectedLinks = document.querySelectorAll(".protected-link");
+            
+
+            if (isAuthenticated) {
+                console.log("Tu sammmmm")
+                protectedLinks.forEach(link => link.style.display = "inline");
+                
+            } else {
+                console.log("Nisam tuuuu")
+                protectedLinks.forEach(link => link.style.display = "none");
+                
+            }
+        });
+    </script>
+
+
     <p>
         ---
 PODACI O AUTORU I SADRŽAJU REPOZITORIJA>:<br>
@@ -91,5 +116,147 @@ COPY (<br>
 	FROM trgovine LEFT JOIN artikli ON oznaka = oznaka_trgovine<br>
 ) TO 'C:/isprobaj/rezcsv.csv' WITH csv;
     </p>
+
+
+<br>
+<a href="/oidcLogout">OIDC Logout</a>
 </body>
+<script>
+    function pretraziBazu() {
+        odabranoPolje = document.getElementById("odabirPolja").value
+        odabranaVrijednost = document.getElementById("odabirVrijednosti").value
+        fetch(`/datatable/pretraziBazu?odabranoPolje=${encodeURIComponent(odabranoPolje)}&odabranaVrijednost=${encodeURIComponent(odabranaVrijednost)}`, {
+            method: "GET"
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(podaci => {
+            tijeloTablice = document.getElementById("tijeloTablice")
+            tijeloTablice.innerHTML = ""
+
+            podaci.forEach(podatak => {
+                redakTablice = document.createElement("tr")
+
+                oznaka = document.createElement("td")
+                oznaka.textContent = podatak.oznaka
+                
+                redakTablice.appendChild(oznaka)
+
+                adresa = document.createElement("td")
+                adresa.textContent = podatak.adresa
+                redakTablice.appendChild(adresa)
+
+                mjesto = document.createElement("td")
+                mjesto.textContent = podatak.mjesto
+                redakTablice.appendChild(mjesto)
+
+                geo_sirina = document.createElement("td")
+                geo_sirina.textContent = podatak.geo_sirina
+                redakTablice.appendChild(geo_sirina)
+
+                geo_duzina = document.createElement("td")
+                geo_duzina.textContent = podatak.geo_duzina
+                redakTablice.appendChild(geo_duzina)
+
+                ocjena = document.createElement("td")
+                ocjena.textContent = podatak.ocjena
+                redakTablice.appendChild(ocjena)
+
+                broj_glasova = document.createElement("td")
+                broj_glasova.textContent = podatak.broj_glasova
+                redakTablice.appendChild(broj_glasova)
+
+                otvaranje = document.createElement("td")
+                otvaranje.textContent = podatak.otvaranje
+                redakTablice.appendChild(otvaranje)
+
+                zatvaranje = document.createElement("td")
+                zatvaranje.textContent = podatak.zatvaranje
+                redakTablice.appendChild(zatvaranje)
+
+                ima_zeleni_hell = document.createElement("td")
+                ima_zeleni_hell.textContent = podatak.ima_zeleni_hell
+                redakTablice.appendChild(ima_zeleni_hell)
+
+                naziv = document.createElement("td")
+                naziv.textContent = podatak.naziv
+                redakTablice.appendChild(naziv)
+
+                cijena = document.createElement("td")
+                cijena.textContent = podatak.cijena
+                redakTablice.appendChild(cijena)
+
+
+                tijeloTablice.appendChild(redakTablice)
+                
+            })
+        })
+    }
+
+    async function generirajJson() {
+    fetch(`/datatable/generirajJson?odabranoPolje=Sva polja (wildcard)&odabranaVrijednost=`, {
+        method: "GET"
+    })
+    .then(response => {
+        console.log(response)
+        return response.json()
+    })
+    .then(podaci => {
+        podaciString = JSON.stringify(podaci)
+        blob = new Blob([podaciString], {type: "application/json"})
+        link = URL.createObjectURL(blob)
+        
+        elementA = document.createElement("a")
+        elementA.href = link
+        elementA.download = "rezultat.json"
+        
+        elementA.click()
+
+        URL.revokeObjectURL(link)
+    })
+}
+
+
+    async function generirajCsv() {
+        fetch(`/datatable/pretraziBazu?odabranoPolje=Sva polja (wildcard)&odabranaVrijednost=`, {
+            method: "GET"
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(podaci => {
+            prviRedak = "oznaka,adresa,mjesto,geo_sirina,geo_duzina,ocjena,broj_glasova,otvaranje,zatvaranje,ima_zeleni_hell,naziv,cijena\n"
+            tijeloDatoteke = ""
+            podaci.forEach(podatak => {
+                redak = podatak.oznaka + "," + podatak.adresa + "," + podatak.mjesto + "," + podatak.geo_sirina + "," + podatak.geo_duzina + "," + podatak.ocjena + "," + podatak.broj_glasova + "," + podatak.otvaranje + "," + podatak.zatvaranje + "," + podatak.ima_zeleni_hell + "," + podatak.naziv + "," + podatak.cijena + "\n"
+                tijeloDatoteke += redak
+            })
+            csvString = prviRedak + tijeloDatoteke
+            csvString = csvString.slice(0, -1)
+
+            blobCsv = new Blob([csvString], {type: "application/csv"})
+            linkCsv = URL.createObjectURL(blobCsv)
+
+            elementAcsv = document.createElement("a")
+            elementAcsv.href = linkCsv
+            elementAcsv.download = "rezultat.csv"
+            
+            elementAcsv.click()
+
+            URL.revokeObjectURL(linkCsv)
+        })
+    }
+
+    
+    async function generirajDatoteke() {
+        generirajJson()
+        generirajCsv()
+    }
+
+
+
+
+
+</script>
 </html>
